@@ -9,7 +9,6 @@
     </button>
 
     <ul class="sidebar-list">
-      <!-- Ítems normales fijos -->
       <li>
         <router-link to="/">
           <font-awesome-icon icon="home" />
