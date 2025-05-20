@@ -11,6 +11,11 @@
         :pinned="sidebarPinned"
         @toggle-pin="togglePin"
       />
+      <div
+        v-if="sidebarOpen"
+        class="sidebar-overlay"
+        @click="toggleSidebar"
+      ></div>
       <div :class="['content', { shifted: sidebarOpen || sidebarPinned }]">
         <router-view />
       </div>
@@ -32,8 +37,18 @@ const theme = ref(localStorage.getItem('theme') || 'light')
 const isDark = computed(() => theme.value === 'dark')
 
 const toggleSidebar = () => {
-  if (!sidebarPinned.value) sidebarOpen.value = !sidebarOpen.value
-}
+   const isMobile = window.innerWidth <= 768
+   if (isMobile) {
+     // en móvil, al clickar alternamos open ↔️ pin a la vez
+     const nuevoEstado = !sidebarOpen.value
+     sidebarOpen.value = nuevoEstado
+     sidebarPinned.value = nuevoEstado
+   } else {
+     if (!sidebarPinned.value) {
+       sidebarOpen.value = !sidebarOpen.value
+     }
+   }
+ }
 const togglePin = () => {
   sidebarPinned.value = !sidebarPinned.value
   if (sidebarPinned.value) sidebarOpen.value = true

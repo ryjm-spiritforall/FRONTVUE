@@ -226,9 +226,8 @@ a {
 
 /* Notifications badge */
 .badge {
-  position: absolute;
   top:    4px;
-  right:  4px;
+  right:  1px;
   background:     var(--color-gold-light);
   color:          var(--color-black);
   font-size:      0.6rem;
@@ -436,16 +435,29 @@ a {
     background: var(--sidebar-bg);
     transform: translateX(-100%);
     transition: transform var(--transition-fast) ease-in-out;
-    z-index: 999;           /* encima del header */
+    z-index: 1100;    /* >1000 */
   }
   .app-sidebar.open {
     transform: translateX(0);
   }
-
+  .sidebar-list{
+    margin-top: 16%;
+  }
+/* anula el collapsed en móvil */
+  .app-sidebar.collapsed {
+    width: var(--sidebar-expanded);
+  }
   /* — Overlay que se activa en JS — */
   .sidebar-overlay {
     display: none;
   }
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 1001;    /* opcional: 1001 para que esté encima del header */
+  }
+
   .app-sidebar.open ~ .sidebar-overlay {
     display: block;
     position: fixed;
@@ -481,6 +493,29 @@ a {
   .app-header .user-text {
     display: none;
   }
+  .app-sidebar .pin-btn {
+    display: none;
+  }
+    .icon-btn.hamburger {
+    display: inline-flex;
+  }
+  .content.shifted {
+    margin-left: 0 !important;
+  }
+  .app-header .notifications-btn {
+    margin-right: var(--space-0); 
+  }
+
+  /* Y espacio a la izquierda del avatar */
+  .app-header .avatar-wrapper {
+    margin-left: var(--space-0);
+  }
+
+  /* (Opcional) Ajusta la posición del badge si hiciera falta */
+  .app-header .notifications-btn .badge {
+    top: 2px;
+    right: 2px;
+  }
 }
 
 @media (min-width: 769px) {
@@ -493,9 +528,3 @@ a {
   display: none;
 }
 
-/* en móviles (<=768px) reaparece */
-@media (max-width: 768px) {
-  .icon-btn.hamburger {
-    display: inline-flex;
-  }
-}

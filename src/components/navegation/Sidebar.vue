@@ -1,6 +1,6 @@
 <template>
   <aside 
-    :class="['app-sidebar', { collapsed: !pinned }]"
+    :class="['app-sidebar', { collapsed: !pinned, open: props.open }]"
     @mouseenter="hovering = true" 
     @mouseleave="hovering = false"
   >
@@ -71,7 +71,7 @@
 import { ref, reactive } from 'vue';
 
 // Prop / emit de pin & hover
-const props    = defineProps({ pinned: Boolean });
+const props    = defineProps({ pinned: Boolean, open: Boolean });
 const emit     = defineEmits(['toggle-pin']);
 const hovering = ref(false);
 
