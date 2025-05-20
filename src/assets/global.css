@@ -1,0 +1,491 @@
+/*==============================================================================
+  GLOBAL VARIABLES
+==============================================================================*/
+:root {
+  /* — Core colors — */
+  --color-white:      #FFFFFF;
+  --color-black:      #000000;
+  --color-gold-light: #D3A14A;
+  --color-gold-dark:  #C17B00;
+  --color-gray-100:   #F5F5F5;
+  --color-gray-800:   #333333;
+  --color-gray-900:   #1e1e2f;
+
+  /* — Theme palettes (override in [data-theme="dark"]) — */
+  --bg-page:       var(--color-gray-100);
+  --bg-surface:    var(--color-white);
+  --text-primary:  var(--color-gray-800);
+  --text-secondary:var(--color-gray-800);
+  --sidebar-bg:    var(--color-black);
+  --header-bg:     var(--gradient-gold);
+  --header-text:   var(--color-white);
+
+  /* — Gradients — */
+  --gradient-gold: linear-gradient(
+    90deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold-dark)  100%
+  );
+
+  /* — Typography — */
+  --font-base:    'Montserrat', sans-serif;
+  --font-sm:      0.875rem;
+  --font-md:      1rem;
+  --font-lg:      1.25rem;
+  --font-xl:      1.5rem;
+
+  /* — Spacing scale — */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 2rem;
+  --space-5: 4rem;
+
+
+  /* — Radii — */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+
+  /* — Shadows — */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.15);
+
+  /* — Transitions — */
+  --transition-fast: 0.2s ease-in-out;
+
+  /* — Sidebar widths — */
+  --sidebar-expanded:  240px;
+  --sidebar-collapsed: 64px;
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  --bg-page:        var(--color-gray-900);
+  --bg-surface:     #232338;
+  --text-primary:   var(--color-white);
+  --text-secondary: var(--color-gray-100);
+  --sidebar-bg:     #2b2c3a;
+  --header-bg:      #2b2c3a;
+  --footer-bg:      #2b2c3a;
+  --header-text:    var(--color-white);
+}
+
+/*==============================================================================
+  RESET & BASE
+==============================================================================*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 16px;
+}
+body {
+  font-family: var(--font-base);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.main {
+  display: flex;
+  flex: 1;
+  margin-top: 150px;
+  margin-left: 100px;
+}
+
+/*==============================================================================
+  UTILITIES
+==============================================================================*/
+/* Flex */
+.d-flex           { display: flex; }
+.d-inline-flex    { display: inline-flex; }
+.flex-col         { flex-direction: column; }
+.justify-start    { justify-content: flex-start; }
+.justify-center   { justify-content: center; }
+.justify-between  { justify-content: space-between; }
+.align-start      { align-items: flex-start; }
+.align-center     { align-items: center; }
+.align-end        { align-items: flex-end; }
+
+/* Spacing */
+.m-1  { margin:    var(--space-1); }
+.m-2  { margin:    var(--space-2); }
+.m-3  { margin:    var(--space-3); }
+.mt-1 { margin-top:    var(--space-1); }
+.mt-2 { margin-top:    var(--space-2); }
+.mt-3 { margin-top:    var(--space-3); }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+
+.p-1  { padding:    var(--space-1); }
+.p-2  { padding:    var(--space-2); }
+.p-3  { padding:    var(--space-3); }
+
+/* Typography */
+.text-sm    { font-size: var(--font-sm);    }
+.text-md    { font-size: var(--font-md);    }
+.text-lg    { font-size: var(--font-lg);    }
+.text-xl    { font-size: var(--font-xl);    }
+.text-center{ text-align: center;           }
+.text-primary   { color: var(--text-primary);   }
+.text-secondary { color: var(--text-secondary); }
+.text-white     { color: var(--color-white);     }
+.text-black     { color: var(--color-black);     }
+
+/* Backgrounds */
+.bg-page    { background: var(--bg-page);    }
+.bg-surface { background: var(--bg-surface); }
+.bg-sidebar { background: var(--sidebar-bg); }
+.bg-header  { background: var(--header-bg);  }
+
+/* Borders & Radius */
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+
+/* Shadows */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+/* Cursor */
+.cursor-pointer { cursor: pointer; }
+
+/* Overflow */
+.overflow-hidden { overflow: hidden; }
+
+/*==============================================================================
+  COMPONENT: ICON BUTTON
+==============================================================================*/
+.icon-btn {
+  background: transparent;
+  border: none;
+  padding: var(--space-1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-btn svg {
+  font-size: 1.25rem;
+  color: var(--header-text);
+  transition: color var(--transition-fast);
+}
+.icon-btn:hover svg {
+  color: var(--color-gold-light);
+}
+
+/*==============================================================================
+  COMPONENT: HEADER (FLOTANTE)
+==============================================================================*/
+.app-header {
+  position: fixed;
+  top:    var(--space-3);
+  left:   calc(var(--sidebar-expanded) + var(--space-3));
+  right:  calc(var(--sidebar-expanded) + var(--space-3));
+  height: 56px;
+
+  @apply d-flex align-center justify-between;
+  padding: 0 var(--space-3);
+
+  background:    var(--header-bg);
+  color:         var(--header-text);
+  border-radius: var(--radius-md);
+  box-shadow:    var(--shadow-lg);
+  z-index:       1000;
+}
+.app-header .user-info {
+  display: flex;
+  align-items: center;
+    margin-left: var(--space-4);
+
+}
+.app-header .user-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: var(--space-2);
+}
+.app-header .user-name {
+  font-size: var(--font-md);
+  font-weight: 600;
+}
+.app-header .user-role {
+  font-size: var(--font-sm);
+  opacity: 0.85;
+}
+
+/* separa la foto un poco del texto */
+.app-header .avatar-wrapper {
+  margin-left: var(--space-3);
+}
+
+/* Notifications badge */
+.badge {
+  position: absolute;
+  top:    4px;
+  right:  4px;
+  background:     var(--color-gold-light);
+  color:          var(--color-black);
+  font-size:      0.6rem;
+  padding:        2px 5px;
+  border-radius:  50%;
+  line-height:    1;
+}
+
+/*==============================================================================
+  COMPONENT: SIDEBAR
+==============================================================================*/
+.app-sidebar {
+  position: fixed; top: 0; left: 0; height: 100vh;
+  width: var(--sidebar-expanded);
+  background: var(--sidebar-bg);
+  overflow: hidden;
+  transition: width var(--transition-fast);
+  z-index: 900;
+}
+.app-sidebar.collapsed {
+  width: var(--sidebar-collapsed);
+}
+.app-sidebar.collapsed:hover {
+  width: var(--sidebar-expanded);
+}
+
+/*==============================================================================
+  ÍTEMS DE PRIMER NIVEL (sin submenú)
+==============================================================================*/
+.sidebar-list > li:not(.has-submenu) {
+  display: flex;
+  align-items: center;
+  transition: padding var(--transition-fast), justify-content var(--transition-fast);
+}
+/* padding / centrado en collapsed sin hover */
+.app-sidebar.collapsed .sidebar-list > li:not(.has-submenu) {
+  justify-content: center;
+  padding: var(--space-2) 0;
+}
+/* recupera padding y alineación al hover o pinned */
+.app-sidebar.collapsed:hover .sidebar-list > li:not(.has-submenu),
+.app-sidebar:not(.collapsed) .sidebar-list > li:not(.has-submenu) {
+  justify-content: flex-start;
+  padding: var(--space-2) var(--space-3);
+}
+
+/*==============================================================================
+  SUBMENÚ “CATÁLOGOS”
+==============================================================================*/
+/* el <li> padre se mantiene block para que su UL caiga debajo */
+.sidebar-list li.has-submenu {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* header = icono + texto + flecha */
+.sidebar-list .submenu-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: padding var(--transition-fast), justify-content var(--transition-fast);
+}
+/* collapsed sin hover: solo icono centrado */
+.app-sidebar.collapsed .submenu-header {
+  justify-content: center;
+  padding: var(--space-2) 0;
+}
+/* expandido (hover o pinned): icono+texto alineado */
+.app-sidebar.collapsed:hover .submenu-header,
+.app-sidebar:not(.collapsed) .submenu-header {
+  justify-content: flex-start;
+  padding: var(--space-2) var(--space-3);
+}
+
+/* parent icon separador */
+.parent-icon {
+  margin-right: var(--space-2);
+}
+
+/* flecha: por defecto oculta en collapse, visible en expand */
+.chevron-icon {
+  margin-left: auto;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+/* hide chevron when collapsed */
+.app-sidebar.collapsed .chevron-icon {
+  opacity: 0;
+  pointer-events: none;
+}
+/* show chevron when expanded */
+.app-sidebar.collapsed:hover .chevron-icon,
+.app-sidebar:not(.collapsed) .chevron-icon {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* rotate on open */
+.has-submenu.open .chevron-icon {
+  transform: rotate(180deg);
+}
+
+/*==============================================================================
+  SUBITEMS (viñetas y sangría)
+==============================================================================*/
+/* por defecto UL hidden via v-show */
+.submenu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--space-4);
+}
+/* cada sub-item */
+.submenu-list li {
+  position: relative;
+  padding: var(--space-1) 0;
+}
+/* viñeta antes */
+.submenu-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--text-secondary);
+  margin-right: var(--space-2);
+}
+/* label con margen extra */
+.submenu-list li .label {
+  margin-left: var(--space-3);
+}
+
+/*==============================================================================
+  ICONOS / LABELS GLOBALES
+==============================================================================*/
+.sidebar-list a {
+  display: flex;
+  align-items: center;
+}
+.sidebar-list svg {
+  font-size: 1.25rem;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  border-radius: 30%;
+  padding: var(--space-2);
+}
+/* texto hiddeado en collapse */
+.app-sidebar.collapsed .label {
+  display: none;
+}
+/* mostrarse al hover */
+.app-sidebar.collapsed:hover .label {
+  display: inline-block;
+}
+
+/*==============================================================================
+  HOVER & ACTIVE (icon-only)
+==============================================================================*/
+/* hover: siempre pinta sólo el SVG */
+.sidebar-list a:hover svg {
+  background: rgba(255,255,255,0.1);
+}
+/* active: sólo icono dorado */
+.sidebar-list a.router-link-exact-active svg {
+  background: var(--color-gold-dark);
+  color: var(--color-black);
+}
+/* nunca fondo en el <a> completo */
+.sidebar-list a,
+.sidebar-list a.router-link-exact-active {
+  background: none;
+  font-weight: normal;
+}
+
+/*==============================================================================
+  SHIFT DEL CONTENIDO PRINCIPAL
+==============================================================================*/
+.app-sidebar.collapsed + .main-content {
+  margin-left: var(--sidebar-collapsed);
+}
+/*=============================================
+  ALINEACIÓN PERFECTA EN COLAPSADO (SIN HOVER)
+=============================================*/
+.app-sidebar.collapsed:not(:hover) .sidebar-list > li,
+.app-sidebar.collapsed:not(:hover) .submenu-header {
+  justify-content: center !important;
+  padding: var(--space-2) 0 !important;
+}
+
+/* Quitar margen del icono padre (“folder-open”) */
+.app-sidebar.collapsed:not(:hover) .parent-icon {
+  margin-right: 0 !important;
+}
+
+/* Ocultar totalmente la flecha en colapsado */
+.app-sidebar.collapsed:not(:hover) .chevron-icon {
+  display: none !important;
+}
+/*==============================================================================  
+  HOVER EN SUBOPCIONES (PINNED O POR HOVER)  
+==============================================================================*/
+/* fondo al pasar el ratón */
+.app-sidebar:not(.collapsed) .submenu-list li:hover,
+.app-sidebar.collapsed:hover .submenu-list li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* cambia color del texto si quieres mayor contraste */
+.app-sidebar:not(.collapsed) .submenu-list li:hover .label,
+.app-sidebar.collapsed:hover .submenu-list li:hover .label {
+  color: var(--color-white);
+}
+
+/* mismo efecto si hubiera un SVG en la subopción */
+.app-sidebar:not(.collapsed) .submenu-list li:hover svg,
+.app-sidebar.collapsed:hover .submenu-list li:hover svg {
+  background: rgba(255, 255, 255, 0.1);
+}
+/*==============================================================================  
+  OVERRIDES: TEXTO BLANCO EN SIDEBAR (LIGHT & EXPANDIDA)  
+==============================================================================*/
+/* 1) Asegúrate de que labels e íconos hereden color blanco */
+.app-sidebar .label,
+.app-sidebar svg {
+  color: var(--color-white) !important;
+}
+
+/* 2) Para los subitems (tanto en normal como al hacer hover / active) */
+.app-sidebar .submenu-list li .label {
+  color: var(--color-white) !important;
+}
+
+/* 3) Si quieres mantener un contraste un poco más suave en textos “no activos”,
+   podrías usar un blanco semitransparente en vez de puro: */
+.app-sidebar .label,
+.app-sidebar .submenu-list li .label {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+/* 4) Para los estados hover/active de las subopciones (añade si no lo tienes ya) */
+.app-sidebar:not(.collapsed) .submenu-list li:hover .label,
+.app-sidebar.collapsed:hover .submenu-list li:hover .label,
+.app-sidebar .submenu-list li.router-link-exact-active .label {
+  color: var(--color-white) !important;
+}
+
+/* 5) Asegúrate de que los enlaces tomen el color blanco */
+.app-sidebar a {
+  color: var(--color-white) !important;
+}
+/*==============================================================================  
+                                     FOOTER 
+==============================================================================*/
+.app-footer {
+  
+  background: var(--footer-bg);
+  color: var(--color-white);
+  text-align: center;
+  padding: 0.7rem;
+
+}       
